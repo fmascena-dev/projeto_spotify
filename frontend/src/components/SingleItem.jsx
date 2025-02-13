@@ -44,8 +44,3 @@ SingleItem.propTypes = {
   artist: PropTypes.string,
   idPath: PropTypes.string.isRequired,
 };
-
-// Valores padrão para props opcionais
-// SingleItem.defaultProps = {
-//   artist: 'Artista Desconhecido',
-// };
