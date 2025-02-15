@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export default function SongItem ({ image, name, duration, artist, audio, id, index }) {
+export default function SongItem ({ image, name, duration, artist, audio, _id, index }) {
   return (
-    <Link to={`/song/${id}`} className="song-item">
+    <Link to={`/song/${_id}`} className="song-item">
       <div className="song-item__number-album">
         <p>{index + 1}</p>
 
@@ -29,7 +29,7 @@ SongItem.propTypes = {
   duration: PropTypes.number.isRequired,
   artist: PropTypes.string,
   audio: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.number.isRequired,
   idPath: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };

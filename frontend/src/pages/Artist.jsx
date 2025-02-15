@@ -10,7 +10,7 @@ export default function Artist() {
   // console.log(useParams());
 
   const { name, banner } = artistArray.filter(
-    (currentArtistObj) => currentArtistObj.id === Number(id),
+    (currentArtistObj) => currentArtistObj._id === id,
   )[0];
 
   const songsArrayFromArtist = songsArray.filter(
@@ -20,7 +20,7 @@ export default function Artist() {
   const randomIndex = Math.floor(
     Math.random() * (songsArrayFromArtist.length - 1),
   );
-  const randomIdFromArtist = songsArrayFromArtist[randomIndex].id;
+  const randomIdFromArtist = songsArrayFromArtist[randomIndex]._id;
 
   // console.log(randomIdFromArtist);
   // console.log(Math.floor(Math.random() * (songsArrayFromArtist.length - 1)));

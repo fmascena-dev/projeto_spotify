@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 export default function SingleItem({
-  id,
+  _id,
   name,
   image,
   banner,
@@ -12,7 +12,7 @@ export default function SingleItem({
   idPath,
 }) {
   return (
-    <Link to={`${idPath}/${id}`} className="single-item">
+    <Link to={`${idPath}/${_id}`} className="single-item">
       <div className="single-item__div-image-button">
         <div className="single-item__div-image">
           <img
@@ -37,7 +37,7 @@ export default function SingleItem({
 }
 
 SingleItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   banner: PropTypes.string, // Não é obrigatório porque não está sendo usado
