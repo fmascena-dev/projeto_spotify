@@ -3,14 +3,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function SongList({ songsArray }) {
-  // const items = 5;
   const [items, setItems] = useState(5);
 
-  // items = 10
-  // setItems(10)
-
-  // console.log(items);
-  // items +=  5
 
   return (
     <div className="song-list">
@@ -24,8 +18,6 @@ export default function SongList({ songsArray }) {
         className="song-list__see-more"
         onClick={() => {
           setItems(items + 5);
-          // items += 5;
-          // console.log(items);
         }}
       >
         Ver mais

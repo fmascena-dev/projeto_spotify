@@ -123,6 +123,16 @@
 //   },
 // ];
 
-import { artistArray } from '../../../api/api';
+import axios from 'axios';
 
-export { artistArray };
+const URL = 'http://localhost:3000';
+
+export const getArtists = async () => {
+  try {
+    const response = await axios.get(`${URL}/artists`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar artistas:', error);
+    return [];
+  }
+};

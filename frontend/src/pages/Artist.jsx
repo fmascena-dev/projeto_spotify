@@ -1,32 +1,39 @@
 import { Link, useParams } from 'react-router-dom';
-import { artistArray } from '../assets/database/artists';
-import { songsArray } from '../assets/database/songs';
+import { useEffect, useState } from 'react';
+import { getArtists } from '../assets/database/artists';
+import { getSongs } from '../assets/database/songs';
 import SongList from '../components/SongList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-regular-svg-icons';
 
 export default function Artist() {
   const { id } = useParams();
-  // console.log(useParams());
+  const [artistArray, setArtistArray] = useState([]);
+  const [songsArray, setSongsArray] = useState([]);
 
-  const { name, banner } = artistArray.filter(
+  useEffect(() => {
+    const fetchData = async () => {
+      const artists = await getArtists();
+      const songs = await getSongs();
+      setArtistArray(artists);
+      setSongsArray(songs);
+    };
+    fetchData();
+  }, []);
+
+  const artist = artistArray.find(
     (currentArtistObj) => currentArtistObj._id === id,
-  )[0];
+  );
+  if (!artist) return <div>Carregando...</div>;
+
+  const { name, banner } = artist;
 
   const songsArrayFromArtist = songsArray.filter(
     (currentSongObj) => currentSongObj.artist === name,
   );
 
-  const randomIndex = Math.floor(
-    Math.random() * (songsArrayFromArtist.length - 1),
-  );
-  const randomIdFromArtist = songsArrayFromArtist[randomIndex]._id;
-
-  // console.log(randomIdFromArtist);
-  // console.log(Math.floor(Math.random() * (songsArrayFromArtist.length - 1)));
-  // console.log("Tamanho do Array:" + songsArrayFromArtist.length);
-
-  // console.log(songsArrayFromArtist);
+  const randomIndex = Math.floor(Math.random() * songsArrayFromArtist.length);
+  const randomIdFromArtist = songsArrayFromArtist[randomIndex]?._id || '';
 
   return (
     <div className="artist">
@@ -41,16 +48,17 @@ export default function Artist() {
 
       <div className="artist__body">
         <h2>Populares</h2>
-
         <SongList songsArray={songsArrayFromArtist} />
       </div>
 
-      <Link to={`/song/${randomIdFromArtist}`}>
-        <FontAwesomeIcon
-          className="single-item__icon single-item__icon--artist"
-          icon={faCirclePlay}
-        />
-      </Link>
+      {randomIdFromArtist && (
+        <Link to={`/song/${randomIdFromArtist}`}>
+          <FontAwesomeIcon
+            className="single-item__icon single-item__icon--artist"
+            icon={faCirclePlay}
+          />
+        </Link>
+      )}
     </div>
   );
 }

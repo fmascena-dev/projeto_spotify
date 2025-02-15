@@ -1,33 +1,43 @@
 import { Link, useParams } from 'react-router-dom';
-import { songsArray } from '../assets/database/songs';
-import { artistArray } from '../assets/database/artists';
+import { useEffect, useState } from 'react';
+import { getSongs } from '../assets/database/songs';
+import { getArtists } from '../assets/database/artists';
 import Player from '../components/Player';
 
 export default function Song() {
   const { id } = useParams();
+  const [songsArray, setSongsArray] = useState([]);
+  const [artistArray, setArtistArray] = useState([]);
 
-  const { image, name, duration, artist, audio } = songsArray.filter(
-    (currentSongObj) => currentSongObj._id === id,
-  )[0];
+  useEffect(() => {
+    const fetchData = async () => {
+      const songs = await getSongs();
+      const artists = await getArtists();
+      setSongsArray(songs);
+      setArtistArray(artists);
+    };
+    fetchData();
+  }, []);
 
-  const artistObj = artistArray.filter(
+  const song = songsArray.find((currentSongObj) => currentSongObj._id === id);
+  if (!song) return <div>Carregando...</div>;
+
+  const { image, name, duration, artist, audio } = song;
+
+  const artistObj = artistArray.find(
     (currentArtistObj) => currentArtistObj.name === artist,
-  )[0];
+  );
+  if (!artistObj) return <div>Carregando artista...</div>;
 
   const songsArrayFromArtist = songsArray.filter(
     (currentSongObj) => currentSongObj.artist === artist,
   );
 
-  const randomIndex = Math.floor(
-    Math.random() * (songsArrayFromArtist.length - 1),
-  );
+  const randomIndex = Math.floor(Math.random() * songsArrayFromArtist.length);
+  const randomIndex2 = Math.floor(Math.random() * songsArrayFromArtist.length);
 
-  const randomIndex2 = Math.floor(
-    Math.random() * (songsArrayFromArtist.length - 1),
-  );
-
-  const randomIdFromArtist = songsArrayFromArtist[randomIndex]._id;
-  const randomId2FromArtist = songsArrayFromArtist[randomIndex2]._id;
+  const randomIdFromArtist = songsArrayFromArtist[randomIndex]?._id || '';
+  const randomId2FromArtist = songsArrayFromArtist[randomIndex2]?._id || '';
 
   return (
     <div className="song">

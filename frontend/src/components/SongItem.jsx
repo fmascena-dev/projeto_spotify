@@ -1,7 +1,15 @@
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-export default function SongItem ({ image, name, duration, artist, audio, _id, index }) {
+export default function SongItem({
+  image,
+  name,
+  duration,
+  artist,
+  audio,
+  _id,
+  index,
+}) {
   return (
     <Link to={`/song/${_id}`} className="song-item">
       <div className="song-item__number-album">
@@ -21,7 +29,7 @@ export default function SongItem ({ image, name, duration, artist, audio, _id, i
       <p>{duration}</p>
     </Link>
   );
-};
+}
 
 SongItem.propTypes = {
   image: PropTypes.string.isRequired,

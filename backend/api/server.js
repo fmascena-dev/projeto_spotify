@@ -8,7 +8,7 @@ const PORT = 3000;
 app.use(cors());
 
 app.get('/', (request, response) => {
-  response.send("Só vamos trabalhar com os endpoints '/artists' e '/songs'");
+  response.send("Coloque os endpoints '/artists' e '/songs' no final da URL!");
 });
 
 app.get('/artists', async (request, response) => {

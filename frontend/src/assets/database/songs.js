@@ -1721,6 +1721,11 @@
 //   },
 // ];
 
-import { songsArray } from '../../../api/api';
+import { fetchData } from '../../../api/api.js';
 
-export { songsArray };
+const getSongs = async () => {
+  const { songs } = await fetchData();
+  return songs;
+};
+
+export { getSongs };
