@@ -27,7 +27,7 @@ export default function SingleItem({
 
       <div className="single-item__texts">
         <div className="single-item__2lines">
-          <p className="single-item__title">{name}</p>
+          <p className="single-item__title" title={name}>{name}</p>
         </div>
 
         <p className="single-item__type">{artist ?? 'Artista'}</p>
@@ -40,7 +40,7 @@ SingleItem.propTypes = {
   _id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  banner: PropTypes.string, // Não é obrigatório porque não está sendo usado
+  banner: PropTypes.string,
   artist: PropTypes.string,
   idPath: PropTypes.string.isRequired,
 };
